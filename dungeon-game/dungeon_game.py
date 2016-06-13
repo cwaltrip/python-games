@@ -1,13 +1,16 @@
-# Extra Credit
-# Change your player to a dictionary with a key that holds onto where 
-# the player has been. Then, when drawing the map, show . for every cell they've been in.
+# Dungeon Escape
+
+# Originally written for the Coursera/Rice University course
+# 'An Introduction to Interactive Programming in Python (Part 1)'
 
 import random
 
+# Define 2d list that holds the dungeon
 CELLS = [(0, 0), (0, 1), (0, 2),
          (1, 0), (1, 1), (1, 2),
          (2, 0), (2, 1), (2, 2)]
 
+# Randomize start locations for player, monster, door
 def get_locations():
   monster = random.choice(CELLS)
   door = random.choice(CELLS)
@@ -15,7 +18,8 @@ def get_locations():
   if monster == door or monster == start or door == start:
     return get_locations()  
   return monster, door, start
-  
+
+# Translate player move to 2d position change  
 def move_player(player, move):
   # Get the player's current location
   x, y = player
@@ -29,6 +33,7 @@ def move_player(player, move):
     x += 1
   return x, y
 
+# Get legal moves from current position
 def get_available_moves(player):
   available_moves = ['UP', 'DOWN', 'LEFT', 'RIGHT']
   if player[0] == 0:
@@ -41,6 +46,7 @@ def get_available_moves(player):
     available_moves.remove('RIGHT')
   return available_moves
 
+# Draw the dungeon 'map' 
 def draw_map(player):
   print(' _ _ _')
   tile = '|{}'
@@ -57,11 +63,11 @@ def draw_map(player):
         print(tile.format('_|'))
   print('')
 
-# Begin the game
+# Start game
 monster, door, player = get_locations()
 print("Welcome to the dungeon!")
 
-# Main loop
+# Main game loop
 while True:
   moves = get_available_moves(player)
   print("\nYou're currently in room {}:".format(player))

@@ -13,7 +13,6 @@ class Game:
   # Setup new game
   def setup(self):
     self.player = Character()
-    print("-+-+-+-")
     self.monsters = [
       Goblin(),
       Troll(),
@@ -31,6 +30,7 @@ class Game:
   
   # Perform the monster's actions each turn  
   def monster_turn(self):
+    # print("\n")
     if self.monster.attack():
       print("The {} attacks! \"{}!\"".format(self.monster.name, self.monster.battlecry()))
       damage = self.monster.damage()
@@ -40,15 +40,17 @@ class Game:
         else:
           print("You fail to dodge and take {} damage.".format(damage))
           self.player.hit_points -= damage
+          print("You now have {} hit points left.".format(self.player.hit_points))
       else:
         print("You're hit for {} damage.".format(damage))
         self.player.hit_points -= damage
+        print("You now have {} hit points left.".format(self.player.hit_points))
     else:
       print("The {} isn't attacking this turn.".format(self.monster.name))
-    print("-+-+-+-")
   
   # Perform the player's actions each turn  
   def player_turn(self):
+    # print("\n")
     action = input("[A]ttack, [R]est, or [Q]uit? ").lower()
     if action == 'a':
       if self.player.attack():
@@ -66,38 +68,36 @@ class Game:
         sys.exit()
     else:
       self.player_turn()
-    print("-+-+-+-")
   
   # Do end-of-combat actions  
   def cleanup(self):
     if self.monster.hit_points < 1:
       self.player.experience += self.monster.experience
-      print("-+-+-+-")
+      # print("\n")
       print("You've defeated the {} and gained {} experience.".format(self.monster.name, self.monster.experience))
       self.monster = self.get_next_monster()
-      print("-+-+-+-")
   
   # Init    
   def __init__(self):
     self.setup()
-    
+    print("")
     # Main game loop
     while self.player.hit_points and (self.monster or self.monsters):
       # Show current combat status
       print("{} is fighting a {}.".format(self.player, self.monster))
-      print("-+-+-+-")
       self.monster_turn()
       # print("-"*20)
-      self.player_turn()
-      self.cleanup()
+      if self.player.hit_points > 0:
+        self.player_turn()
+        self.cleanup()
+      print("")
       # print("\n"+"="*20)
     
-    print("\n")  
     # Win/lose conditions
     if self.player.hit_points:
-      print("You win!")
+      print("You have defeated all the monsters. You are truly a hero!")
     elif self.monsters or self.monster:
-      print("You lose!")
+      print("You have been killed by the {}. Better luck next life!".format(self.monster))
     sys.exit()
 
 # Start a new game on launch

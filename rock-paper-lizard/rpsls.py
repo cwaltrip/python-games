@@ -1,21 +1,12 @@
-# Rock-paper-scissors-lizard-Spock template
+# Rock, Paper, Scissors, Lizard, Spock
 
-# The key idea of this program is to equate the strings
-# "rock", "paper", "scissors", "lizard", "Spock" to numbers
-# as follows:
-#
-# 0 - rock
-# 1 - Spock
-# 2 - paper
-# 3 - lizard
-# 4 - scissors
+# Originally written for the Coursera/Rice University course
+# 'An Introduction to Interactive Programming in Python (Part 1)'
 
 import random
 
-# helper functions
-
 def name_to_number(name):
-    # convert name to number using if/elif/else
+    # Convert name to number
     if name == "rock":
         number = 0
     elif name == "Spock":
@@ -28,11 +19,11 @@ def name_to_number(name):
         number = 4
     else:
         print("Illegal value for 'name'!")
-    # don't forget to return the result!
+    # Return the result
     return number
 
 def number_to_name(number):
-    # convert number to a name using if/elif/else
+    # Convert number to a name
     if number == 0:
         name = "rock"
     elif number == 1:
@@ -45,26 +36,24 @@ def number_to_name(number):
         name = "scissors"
     else:
         print("Illegal value for 'number'!")
-    # don't forget to return the result!
+    # Return the result
     return name
     
 
 def rpsls(player_choice): 
-    # print a blank line to separate consecutive games
+    # Print a blank line between rounds/games
     print("")
-    # print out the message for the player's choice
+    # Ask for the player's choice
     print("Player chooses " + player_choice)
-    # convert the player's choice to player_number using the function name_to_number()
     player_number = name_to_number(player_choice)
-    # compute random guess for comp_number using random.randrange()
+    # Use random to determine computer's choice
     comp_number = random.randrange(4)
-    # convert comp_number to comp_choice using the function number_to_name()
     comp_choice = number_to_name(comp_number)
-    # print out the message for computer's choice
+    # Alert the user
     print("Computer chooses " + comp_choice)
-    # compute difference of comp_number and player_number modulo five
+    # Determine who wins
     result = (comp_number - player_number) % 5
-    # use if/elif/else to determine winner, print winner message
+    # Print the results of this round/game
     if (result == 1 or result == 2):
         print("Computer wins!")
     elif (result == 3 or result == 4):
@@ -72,13 +61,10 @@ def rpsls(player_choice):
     else:
         print("Player and computer tie!")
     
-# test your code - THESE CALLS MUST BE PRESENT IN YOUR SUBMITTED CODE
+# Required tests
 rpsls("rock")
 rpsls("Spock")
 rpsls("paper")
 rpsls("lizard")
 rpsls("scissors")
-
-# always remember to check your completed program against the grading rubric
-
 
