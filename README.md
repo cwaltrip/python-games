@@ -1,5 +1,5 @@
 # python-games
-These are a few simple games written to get familiar with Python. They required Python 3.4.
+These are a few simple games written to get familiar with Python. They require Python 3.4.
 
 **dungeon-game** is a randomly-generated mini-maze that you must escape without encountering a monster.
 
